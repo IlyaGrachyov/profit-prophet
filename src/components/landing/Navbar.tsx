@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-hero/90 backdrop-blur-md border-b border-hero-muted/10">
       <div className="container flex items-center justify-between h-16">
         <a href="/" className="text-hero-foreground font-display font-bold text-xl">
-          gulin.kz
+          Marketing Gid
         </a>
 
         {/* Desktop */}
