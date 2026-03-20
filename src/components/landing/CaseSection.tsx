@@ -28,7 +28,7 @@ const CaseSection = () => (
             <p className="text-muted-foreground">Конверсия: 10%</p>
             <div className="pt-3 border-t border-border">
               <p className="text-sm text-muted-foreground">Стоимость клиента</p>
-              <p className="text-3xl font-bold text-destructive">100 000 ₸</p>
+              <p className="text-3xl font-bold text-destructive">5 000 ₸</p>
             </div>
           </div>
         </motion.div>
