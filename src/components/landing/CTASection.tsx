@@ -22,7 +22,8 @@ const CTASection = () => {
         "fields[PHONE][0][VALUE_TYPE]": "WORK",
       });
       await fetch(
-        `https://crm.profi-soft.kz/rest/5877/m4hhacmfv8f1znkb/crm.lead.add.json?${params.toString()}`
+        `https://crm.profi-soft.kz/rest/5877/m4hhacmfv8f1znkb/crm.lead.add.json?${params.toString()}`,
+        { mode: "no-cors" }
       );
       toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
       setForm({ name: "", phone: "", budget: "" });
