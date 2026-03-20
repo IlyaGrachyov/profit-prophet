@@ -9,7 +9,7 @@ const cards = [
 ];
 
 const ResultsSection = () => (
-  <section className="py-20 md:py-28 bg-background">
+  <section id="results" className="py-20 md:py-28 bg-background">
     <div className="container">
       <motion.div
         initial={{ opacity: 0, y: 30 }}

@@ -11,7 +11,7 @@ const steps = [
 ];
 
 const SolutionSection = () => (
-  <section className="py-20 md:py-28 bg-hero relative overflow-hidden">
+  <section id="solution" className="py-20 md:py-28 bg-hero relative overflow-hidden">
     <div className="absolute inset-0 bg-glow/3 blur-3xl" />
     <div className="container relative z-10">
       <motion.div
