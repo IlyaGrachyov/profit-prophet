@@ -3,28 +3,20 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const CTASection = () => {
   const [form, setForm] = useState({ name: "", phone: "", budget: "" });
-
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const params = new URLSearchParams({
-        "fields[TITLE]": `Заявка с сайта: ${form.name}`,
-        "fields[UF_CRM_5F100653C8C97]": form.name,
-        "fields[UF_CRM_LEAD_1773830562571]": form.phone,
-        "fields[UF_CRM_1773900058]": form.budget ? `Бюджет: ${form.budget}` : "",
-        "fields[PHONE][0][VALUE]": form.phone,
-        "fields[PHONE][0][VALUE_TYPE]": "WORK",
+      const { data, error } = await supabase.functions.invoke("bitrix-proxy", {
+        body: { name: form.name, phone: form.phone, budget: form.budget },
       });
-      await fetch(
-        `https://crm.profi-soft.kz/rest/5877/m4hhacmfv8f1znkb/crm.lead.add.json?${params.toString()}`,
-        { mode: "no-cors" }
-      );
+      if (error) throw error;
       toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
       setForm({ name: "", phone: "", budget: "" });
     } catch {
