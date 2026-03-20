@@ -7,10 +7,30 @@ import { toast } from "sonner";
 const CTASection = () => {
   const [form, setForm] = useState({ name: "", phone: "", budget: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
-    setForm({ name: "", phone: "", budget: "" });
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({
+        "fields[TITLE]": `Заявка с сайта: ${form.name}`,
+        "fields[UF_CRM_5F100653C8C97]": form.name,
+        "fields[UF_CRM_LEAD_1773830562571]": form.phone,
+        "fields[UF_CRM_1773900058]": form.budget ? `Бюджет: ${form.budget}` : "",
+        "fields[PHONE][0][VALUE]": form.phone,
+        "fields[PHONE][0][VALUE_TYPE]": "WORK",
+      });
+      await fetch(
+        `https://crm.profi-soft.kz/rest/5877/m4hhacmfv8f1znkb/crm.lead.add.json?${params.toString()}`
+      );
+      toast.success("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
+      setForm({ name: "", phone: "", budget: "" });
+    } catch {
+      toast.error("Ошибка при отправке. Попробуйте ещё раз.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -61,9 +81,10 @@ const CTASection = () => {
             <Button
               type="submit"
               size="lg"
-              className="w-full bg-gradient-accent text-accent-foreground font-semibold text-lg py-6 rounded-xl animate-pulse-glow hover:opacity-90 transition-opacity"
+              disabled={loading}
+              className="w-full bg-gradient-accent text-accent-foreground font-semibold text-lg py-6 rounded-xl animate-pulse-glow hover:opacity-90 transition-opacity disabled:opacity-50"
             >
-              Получить расчёт ROI
+              {loading ? "Отправка..." : "Получить расчёт ROI"}
             </Button>
           </form>
         </motion.div>
