@@ -81,9 +81,10 @@ const CTASection = () => {
             <Button
               type="submit"
               size="lg"
-              className="w-full bg-gradient-accent text-accent-foreground font-semibold text-lg py-6 rounded-xl animate-pulse-glow hover:opacity-90 transition-opacity"
+              disabled={loading}
+              className="w-full bg-gradient-accent text-accent-foreground font-semibold text-lg py-6 rounded-xl animate-pulse-glow hover:opacity-90 transition-opacity disabled:opacity-50"
             >
-              Получить расчёт ROI
+              {loading ? "Отправка..." : "Получить расчёт ROI"}
             </Button>
           </form>
         </motion.div>
