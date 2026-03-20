@@ -14,7 +14,7 @@ Deno.serve(async (req) => {
     const { name, phone, budget } = await req.json();
 
     const params = new URLSearchParams({
-      'fields[TITLE]': `Заявка с сайта: ${name}`,
+      'fields[TITLE]': `Заявка с сайта - Marketing Gid: ${name}`,
       'fields[UF_CRM_5F100653C8C97]': name,
       'fields[UF_CRM_LEAD_1773830562571]': phone,
       'fields[UF_CRM_1773900058]': budget ? `Бюджет: ${budget}` : '',
