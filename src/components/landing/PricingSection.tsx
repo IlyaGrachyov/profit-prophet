@@ -33,7 +33,7 @@ const serviceTable = [
 ];
 
 const PricingSection = () => (
-  <section className="py-20 md:py-28 bg-muted/50">
+  <section id="pricing" className="py-20 md:py-28 bg-muted/50">
     <div className="container">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
