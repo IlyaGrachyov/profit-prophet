@@ -18,23 +18,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm ci
       - run: npm run build
 
-      # Создаём ZIP-архив готового сайта
+      - name: Update dist folder in repository
+        if: github.actor != 'github-actions[bot]'
+        run: |
+          rm -rf dist
+          npm run build
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f dist
+          if git diff --cached --quiet; then
+            echo "No dist changes"
+          else
+            git commit -m "chore: update dist [skip ci]"
+            git push
+          fi
+
       - name: Create site archive
         run: cd dist && zip -r ../marketing-gid-site.zip .
 
-      # Загружаем ZIP как артефакт (скачиваемый из Actions)
       - uses: actions/upload-artifact@v4
         with:
           name: marketing-gid-site
           path: marketing-gid-site.zip
 
-      # Создаём/обновляем релиз с ZIP-файлом
       - name: Create Release with site archive
         uses: softprops/action-gh-release@v2
         with:

@@ -9,10 +9,20 @@
     <meta property="og:description" content="Обучаем алгоритм рекламы приводить клиентов, которые реально платят" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      const isFileProtocol = window.location.protocol === "file:";
+      const currentPath = window.location.pathname.replace(/\\/g, "/");
+      const isBuiltVersion = /\/dist\/index\.html$/i.test(currentPath);
+
+      if (isFileProtocol && !isBuiltVersion) {
+        window.location.replace("./dist/index.html");
+      }
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
+    <noscript>Для работы сайта включите JavaScript.</noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
