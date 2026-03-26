@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -23,6 +23,29 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build
+
+      # Создаём ZIP-архив готового сайта
+      - name: Create site archive
+        run: cd dist && zip -r ../marketing-gid-site.zip .
+
+      # Загружаем ZIP как артефакт (скачиваемый из Actions)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marketing-gid-site
+          path: marketing-gid-site.zip
+
+      # Создаём/обновляем релиз с ZIP-файлом
+      - name: Create Release with site archive
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: "Готовый сайт (последняя версия)"
+          body: "Скачайте marketing-gid-site.zip, распакуйте и откройте index.html"
+          files: marketing-gid-site.zip
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
