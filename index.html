@@ -9,20 +9,29 @@
     <meta property="og:description" content="Обучаем алгоритм рекламы приводить клиентов, которые реально платят" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <script>
-      const isFileProtocol = window.location.protocol === "file:";
-      const currentPath = window.location.pathname.replace(/\\/g, "/");
-      const isStaticVersion = /\/(site|dist)\/index\.html$/i.test(currentPath);
-
-      if (isFileProtocol && !isStaticVersion) {
-        window.location.replace("./site/index.html");
-      }
-    </script>
   </head>
 
   <body>
     <div id="root"></div>
     <noscript>Для работы сайта включите JavaScript.</noscript>
-    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if (window.location.protocol === "file:") {
+        document.documentElement.style.height = "100%";
+        document.body.style.height = "100%";
+        document.body.style.margin = "0";
+        document.body.innerHTML = `
+          <iframe
+            src="./site/index.html"
+            title="Marketing Gid"
+            style="display:block;width:100vw;height:100vh;border:0;"
+          ></iframe>
+        `;
+      }
+    </script>
+    <script type="module">
+      if (window.location.protocol !== "file:") {
+        import("/src/main.tsx");
+      }
+    </script>
   </body>
 </html>
