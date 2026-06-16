@@ -25,6 +25,9 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
+          <a href="/whatsapp-cloud" className="text-glow hover:text-glow/80 transition-colors text-sm font-semibold">
+            WhatsApp Cloud
+          </a>
           <a href="#cta">
             <Button size="sm" className="bg-gradient-accent text-accent-foreground font-semibold hover:opacity-90">
               Получить аудит
@@ -46,6 +49,9 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
+          <a href="/whatsapp-cloud" onClick={() => setOpen(false)} className="block text-glow hover:text-glow/80 text-sm font-semibold py-2">
+            WhatsApp Cloud
+          </a>
           <a href="#cta" onClick={() => setOpen(false)}>
             <Button size="sm" className="w-full bg-gradient-accent text-accent-foreground font-semibold">
               Получить аудит
