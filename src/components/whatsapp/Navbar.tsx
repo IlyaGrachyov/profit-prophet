@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Menu, X, MessageCircle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const links = [
@@ -13,6 +14,13 @@ const links = [
 const WhatsAppNavbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+
+  // Return to the previous page if there is in-app history, otherwise go home.
+  const goBack = () => {
+    if (window.history.length > 2) navigate(-1);
+    else navigate("/");
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -30,12 +38,22 @@ const WhatsAppNavbar = () => {
       }`}
     >
       <div className="container flex items-center justify-between h-16">
-        <a href="#hero" className="flex items-center gap-2 font-display font-bold text-lg text-foreground">
-          <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-accent text-accent-foreground shadow-glow">
-            <MessageCircle className="w-5 h-5" />
-          </span>
-          WhatsApp Cloud
-        </a>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <button
+            onClick={goBack}
+            aria-label="Назад"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span className="hidden sm:inline">Назад</span>
+          </button>
+          <a href="#hero" className="flex items-center gap-2 font-display font-bold text-lg text-foreground">
+            <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-accent text-accent-foreground shadow-glow">
+              <MessageCircle className="w-5 h-5" />
+            </span>
+            WhatsApp Cloud
+          </a>
+        </div>
 
         {/* Desktop */}
         <div className="hidden lg:flex items-center gap-8">
