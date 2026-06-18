@@ -19,4 +19,9 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Bundle CommonJS-only deps into the SSR/prerender build so Node's ESM loader
+  // can import them (react-helmet-async ships as CJS without named ESM exports).
+  ssr: {
+    noExternal: ["react-helmet-async"],
+  },
 }));

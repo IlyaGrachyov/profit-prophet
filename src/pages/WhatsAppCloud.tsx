@@ -1,3 +1,4 @@
+import Seo from "@/components/Seo";
 import WhatsAppNavbar from "@/components/whatsapp/Navbar";
 import Hero from "@/components/whatsapp/Hero";
 import Problems from "@/components/whatsapp/Problems";
@@ -12,6 +13,11 @@ import WhatsAppFooter from "@/components/whatsapp/Footer";
 
 const WhatsAppCloud = () => (
   <div className="scroll-smooth">
+    <Seo
+      title="WhatsApp Cloud в Казахстане — подключение WhatsApp Business API | Bitrix24"
+      description="Официальный бизнес-партнёр Meta в Казахстане: подключение WhatsApp Business API, звонки SIP, CTWA Tracker и интеграция с Bitrix24 CRM. Пробный период 5 дней бесплатно."
+      path="/whatsapp-cloud"
+    />
     <WhatsAppNavbar />
     <main>
       <Hero />
