@@ -16,11 +16,9 @@ const WhatsAppNavbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
 
-  // Return to the previous page if there is in-app history, otherwise go home.
-  const goBack = () => {
-    if (window.history.length > 2) navigate(-1);
-    else navigate("/");
-  };
+  // Always return to the main site home page (works even when this landing was
+  // opened via a direct/shared link with no in-app history).
+  const goHome = () => navigate("/");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -40,12 +38,12 @@ const WhatsAppNavbar = () => {
       <div className="container flex items-center justify-between h-16">
         <div className="flex items-center gap-2 sm:gap-4">
           <button
-            onClick={goBack}
-            aria-label="Назад"
+            onClick={goHome}
+            aria-label="На главную"
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Назад</span>
+            <span className="hidden sm:inline">На главную</span>
           </button>
           <a href="#hero" className="flex items-center gap-2 font-display font-bold text-lg text-foreground">
             <span className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-accent text-accent-foreground shadow-glow">
